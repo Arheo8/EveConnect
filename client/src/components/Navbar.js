@@ -43,7 +43,12 @@ const NavBar = ()=>{
 
 
      const fetchUsers = (query)=>{
-        setSearch(query)
+        setSearch(query);
+        if(query=='') 
+        {
+          setUserDetails([]);
+          return;
+        }
         fetch('/search-users',{
           method:"post",
           headers:{
@@ -79,6 +84,7 @@ const NavBar = ()=>{
                  return <Link to={item._id != state._id ? "/profile/"+item._id:'/profile'} onClick={()=>{
                    M.Modal.getInstance(searchModal.current).close()
                    setSearch('')
+                   setUserDetails([])
                  }}><li className="collection-item">{item.email}</li></Link> 
                })}
                
